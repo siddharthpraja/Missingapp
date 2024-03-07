@@ -17,7 +17,7 @@ const EditProfile = () => {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `https://vigilant-quoll.pikapod.net/api/collections/profile/records/${id}`
+          process.env.NEXT_PUBLIC_API_URL +  `/api/collections/profile/records/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch profile");
@@ -69,7 +69,7 @@ const EditProfile = () => {
       }
 
       const response = await fetch(
-        `https://vigilant-quoll.pikapod.net/api/collections/profile/records/${id}`,
+        process.env.NEXT_PUBLIC_API_URL + `/api/collections/profile/records/${id}`,
         {
           method: "PATCH",
           body: formData,

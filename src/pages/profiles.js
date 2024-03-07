@@ -9,7 +9,7 @@ const Profiles = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://vigilant-quoll.pikapod.net/api/collections/profile/records");
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/collections/profile/records");
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -25,21 +25,6 @@ const Profiles = () => {
 
     fetchData();
   }, []);
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`https://vigilant-quoll.pikapod.net/api/collections/profile/records/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete profile");
-      }
-      // Remove the deleted profile from the state
-      setData(data.filter(profile => profile.id !== id));
-    } catch (error) {
-      console.error("Error deleting profile:", error);
-    }
-  };
 
   return (
     <div>
@@ -64,7 +49,7 @@ const Profiles = () => {
             >
               <Link href={`/profiles/view/${profile.id}`}>
               <img
-                src={`https://vigilant-quoll.pikapod.net/api/files/profile/${profile.id}/${profile.img}`}
+                src={process.env.NEXT_PUBLIC_API_URL + `/api/files/profile/${profile.id}/${profile.img}`}
                 alt="Profile Image"
                 className="w-full rounded-lg mb-4"
               />
@@ -74,10 +59,9 @@ const Profiles = () => {
               </Link>
               <p className="text-gray-600 mb-4">{profile.place}</p>
               <div className="mt-4">
-                <Link href={`/profiles/edit/${profile.id}`}>
-                  <button className="text-blue-500">Edit Profile</button>
+                <Link href={`/profiles/view/${profile.id}`}>
+                  <button className="text-blue-500">View Profile</button>
                 </Link>
-                <button onClick={() => handleDelete(profile.id)} className="text-red-500 ml-2">Delete</button>
               </div>
             </div>
           ))

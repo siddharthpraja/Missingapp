@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import PocketBase from 'pocketbase';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +10,9 @@ const SignUp = () => {
     password: '',
     confirmPassword: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,10 +22,36 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your sign up logic here, e.g., calling an API to register the user
-    console.log('Form data:', formData);
+    setLoading(true);
+    const pb = new PocketBase('https://tangerine-panda.pikapod.net');
+
+    try {
+      const data = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        passwordConfirm: formData.confirmPassword,
+        name: formData.username // Assuming username is also the name
+      };
+
+      const record = await pb.collection('users').create(data);
+      await pb.collection('users').requestVerification(formData.email);
+      
+      // If registration is successful, redirect the user to the profile page
+      router.push('/profiles');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        setError('Email address is already in use.');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Invalid email format.');
+      } else {
+        setError('An error occurred. Please try again later.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,6 +63,11 @@ const SignUp = () => {
         </div>
         <div className="p-6 bg-white">
           <form onSubmit={handleSubmit}>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+            <div className="mb-4">
+              <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+              <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-yellow-500" />
+            </div>
             <div className="mb-4">
               <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
               <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-yellow-500" />
@@ -44,16 +80,17 @@ const SignUp = () => {
               <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
               <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-yellow-500" />
             </div>
-            <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600">Sign Up</button>
+            <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600" disabled={loading}>
+              {loading ? 'Signing Up...' : 'Sign Up'}
+            </button>
           </form>
           <p className="text-center mt-4 text-sm text-gray-600">
             Already have an account?{' '}
-            <Link href={"./login"}>
+            <Link href="/login">
               Log in
             </Link>
           </p>
         </div>
-        
       </div>
     </div>
   );

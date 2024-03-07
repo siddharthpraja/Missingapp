@@ -14,6 +14,7 @@ const CreateProfile = () => {
   });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const isAuthenticated = true; // Replace this with your authentication logic
 
   const handleInputChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
@@ -37,7 +38,7 @@ const CreateProfile = () => {
       }
 
       const response = await fetch(
-        "https://vigilant-quoll.pikapod.net/api/collections/profile/records",
+        process.env.NEXT_PUBLIC_API_URL + "/api/collections/profile/records",
         {
           method: "POST",
           body: formData,
@@ -52,6 +53,16 @@ const CreateProfile = () => {
       console.error("Error creating profile:", error);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div>
+        <p>Please log in to create a profile.</p>
+        <Link href="/login">Log in</Link>
+      </div>
+    );
+  }
+
 
   return (
     <div>
