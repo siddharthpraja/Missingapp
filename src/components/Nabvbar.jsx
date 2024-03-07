@@ -23,7 +23,7 @@ const Navbar = () => {
 
         {/* Conditionally render "Login" or "Logout" based on isAuthenticated */}
         {isAuthenticated ? (
-          <Link href={"./logout"} className="bg-yellow-300 rounded-full p-2">
+          <Link href={"./logout"} className="bg-y  ellow-300 rounded-full p-2">
             Logout
           </Link>
         ) : (
