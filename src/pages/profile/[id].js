@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("https://tangerine-panda.pikapod.net");
+const pb = new PocketBase(process.env.NEXT_PUBLIC_API_URL);
 
 const Profilepage = () => {
   const [currentUser, setCurrentUser] = useState(null);

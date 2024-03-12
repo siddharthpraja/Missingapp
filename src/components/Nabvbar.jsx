@@ -3,7 +3,7 @@ import Link from "next/link";
 import PocketBase from "pocketbase";
 import { useRouter } from "next/router";
 
-const pb = new PocketBase("https://tangerine-panda.pikapod.net");
+const pb = new PocketBase(process.env.NEXT_PUBLIC_API_URL);
 
 const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(null);

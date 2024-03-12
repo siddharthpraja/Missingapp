@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import Link from 'next/link';
 
-const pb = new PocketBase('https://tangerine-panda.pikapod.net');
+const pb = new PocketBase(process.env.NEXT_PUBLIC_API_URL);
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
