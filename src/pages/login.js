@@ -1,46 +1,32 @@
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
+import Link from 'next/link';
+
+const pb = new PocketBase('https://tangerine-panda.pikapod.net');
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
   const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const pb = new PocketBase('https://tangerine-panda.pikapod.net');
-
+    setLoading(true); // Set loading to true when submitting the form
     try {
-      const authData = await pb.collection('users').authWithPassword(
-        formData.email,
-        formData.password
-      );
-
-      if (authData) {
-        // If login is successful, redirect the user to the profile page
-        router.push('/profiles');
-      } else {
-        setError('Incorrect email or password.');
-      }
+      await pb.collection('users').authWithPassword(formData.email, formData.password);
+      const currentUser = pb.authStore.model; // Fetch user information
+      router.push(`/profile/${currentUser.id}`); // Redirect to profile page
     } catch (error) {
-      setError('May be incorrect password or Email ID');
+      setError('Incorrect email or password.');
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading back to false after submission
     }
   };
 

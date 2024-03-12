@@ -17,10 +17,12 @@ const CreateProfile = () => {
   const isAuthenticated = true; // Replace this with your authentication logic
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     const file = e.target.files[0];
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
@@ -62,7 +64,6 @@ const CreateProfile = () => {
       </div>
     );
   }
-
 
   return (
     <div>

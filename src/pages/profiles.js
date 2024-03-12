@@ -30,7 +30,7 @@ const Profiles = () => {
     <div>
       <h2 className="m-10 font-bold text-3xl">Profile page</h2>
       <div className="text-end">
-        <Link href="/profiles/createprofile">
+        <Link href="/profile/createprofile">
           <button className="p-4 bg-yellow-400 text-yellow-100 rounded-full mr-4">
             Add Profile
           </button>
@@ -47,7 +47,7 @@ const Profiles = () => {
               key={profile.id}
               className="bg-white rounded-lg shadow-lg border-2 p-6 mt-3"
             >
-              <Link href={`/profiles/view/${profile.id}`}>
+              <Link href={`/profile/view/${profile.id}`}>
               <img
                 src={process.env.NEXT_PUBLIC_API_URL + `/api/files/profile/${profile.id}/${profile.img}`}
                 alt="Profile Image"
@@ -59,7 +59,7 @@ const Profiles = () => {
               </Link>
               <p className="text-gray-600 mb-4">{profile.place}</p>
               <div className="mt-4">
-                <Link href={`/profiles/view/${profile.id}`}>
+                <Link href={`/profile/view/${profile.id}`}>
                   <button className="text-blue-500">View Profile</button>
                 </Link>
               </div>

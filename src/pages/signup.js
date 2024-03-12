@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 
+const pb = new PocketBase('https://tangerine-panda.pikapod.net');
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -24,10 +26,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const pb = new PocketBase('https://tangerine-panda.pikapod.net');
-
+    setLoading(true); // Set loading to true when submitting the form
     try {
+      // Perform sign up logic here
       const data = {
         username: formData.username,
         email: formData.email,
@@ -39,8 +40,10 @@ const SignUp = () => {
       const record = await pb.collection('users').create(data);
       await pb.collection('users').requestVerification(formData.email);
       
-      // If registration is successful, redirect the user to the profile page
-      router.push('/profiles');
+      // If registration is successful, log in the user
+      await pb.collection('users').authWithPassword(formData.email, formData.password);
+      const currentUser = pb.authStore.model; // Fetch user information
+      router.push(`/profile/${currentUser.id}`); // Redirect to profile page
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setError('Email address is already in use.');
@@ -50,7 +53,7 @@ const SignUp = () => {
         setError('An error occurred. Please try again later.');
       }
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading back to false after submission
     }
   };
 
