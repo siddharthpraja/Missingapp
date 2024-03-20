@@ -1,11 +1,17 @@
 import "@/styles/globals.css";
 import Navbar from "../components/Nabvbar";
 
-export default function App({ Component, pageProps }) {
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
+
+function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Navbar />
+    <QueryClientProvider client={queryClient}>
+      <Navbar/>
       <Component {...pageProps} />
-    </>
+    </QueryClientProvider>
   );
 }
+
+export default MyApp;

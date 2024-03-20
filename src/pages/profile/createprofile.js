@@ -50,7 +50,7 @@ const CreateProfile = () => {
         throw new Error("Failed to create profile");
       }
       // Redirect to the profile page after successful creation
-      router.push("/profiles");
+      router.push("/profile");
     } catch (error) {
       console.error("Error creating profile:", error);
     }

@@ -78,7 +78,7 @@ const EditProfile = () => {
       if (!response.ok) {
         throw new Error("Failed to update profile");
       }
-      router.push("/profiles");
+      router.push("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);
     }

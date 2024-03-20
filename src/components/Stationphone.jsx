@@ -21,7 +21,7 @@ const CreativeRailway = () => {
 
   return (
     <div className="relative">
-       <h1 className="text-4xl font-bold text-center text-orange-500 mt-8 mb-4">Our Services</h1>
+       <h1 className="text-4xl lg:text-6xl font-bold text-center text-orange-500 mt-8 mb-4">Our Services</h1>
       <svg
         className="w-full"
         viewBox={`0 0 400 ${totalHeight + 100}`} // Adding extra space for footer

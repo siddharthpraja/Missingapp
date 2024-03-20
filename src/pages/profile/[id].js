@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
+import useVerified, { requestVerified} from "@/hooks/useVerified";
+import { handleLogout } from "@/hooks/useNavbar";
 
 const pb = new PocketBase(process.env.NEXT_PUBLIC_API_URL);
 
 const Profilepage = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
+  const {data: isVerified} = useVerified();
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const user = await pb.authStore.model;
+        const user =  pb.authStore.model;
         setCurrentUser(user);
       } catch (error) {
         setCurrentUser(null);
@@ -49,8 +53,11 @@ const Profilepage = () => {
           </p>
         </div>
         <div className="flex justify-center mt-6">
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-yellow-400">
-            Edit Profile
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-yellow-400"
+            onClick={isVerified ? handleLogout : requestVerified}
+          >
+            {isVerified ? "Logout" : "Get Verified"}
           </button>
         </div>
       </div>

@@ -62,7 +62,7 @@ const Profile = () => {
       // Redirect back to profiles page and display success message
       // You can use your preferred routing mechanism here
       // For example, with Next.js:
-      router.push('/profiles');
+      router.push('/profile');
       // You can also add a success message using a toast or alert
       // For example, with a toast library like react-toastify:
       alert.success("Profile deleted successfully");
