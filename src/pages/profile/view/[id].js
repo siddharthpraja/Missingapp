@@ -79,7 +79,7 @@ const Profile = () => {
   return (
     <div className="container mx-auto p-4">
       <Link
-        href="/profiles"
+        href="/profile"
         className=" bg-yellow-300 w-max p-3 rounded-full inline-block mb-4"
       >
         Back to Profile
