@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/useVerified";
 import PocketBase from "pocketbase";
+import { Editor } from "@tinymce/tinymce-react";
 
 const pb = new PocketBase("https://tangerine-panda.pikapod.net");
 
@@ -22,6 +23,10 @@ const CreateBlog = () => {
 
   const handleInputChange = (e) => {
     setBlog({ ...blog, [e.target.name]: e.target.value });
+  };
+
+  const handleEditorChange = (content, editor) => {
+    setBlog({ ...blog, content });
   };
 
   const handleImageChange = (e) => {
@@ -79,8 +84,8 @@ const CreateBlog = () => {
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl">
-        <h2 className="text-3xl font-bold text-orange-600 mb-6 text-center w-full">
+      <div className="bg-white rounded-lg shadow-lg p-8 ">
+        <h2 className="text-3xl font-bold text-orange-600 mb-6 text-center">
           Create blog
         </h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
@@ -117,12 +122,30 @@ const CreateBlog = () => {
             <label htmlFor="content" className="text-gray-700">
               Content
             </label>
-            <textarea
+            <Editor
               id="content"
               name="content"
               value={blog.content}
-              onChange={handleInputChange}
-              className="border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:border-orange-600 w-full"
+              onEditorChange={handleEditorChange} // Use onEditorChange instead of onChange
+              apiKey="oomyz2ctrj14h1cy5sta5m6dvggg4b11p6kc5f78n6br1qpx"
+              init={{
+                plugins:
+                  "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate  mentions    tableofcontents footnotes mergetags autocorrect typography inlinecss markdown fullscreen",
+                toolbar:
+                  "undo redo   | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight fullscreen | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                tinycomments_mode: "embedded",
+                tinycomments_author: "Author name",
+                remove_trailing_brs: false,
+                mergetags_list: [
+                  { value: "First.Name", title: "First Name" },
+                  { value: "Email", title: "Email" },
+                ],
+                ai_request: (request, respondWith) =>
+                  respondWith.string(() =>
+                    Promise.reject("See docs to implement AI Assistant")
+                  ),
+              }}
+              initialValue="Welcome to SearchSoul!"
             />
             {errors.content && <p className="text-red-500">{errors.content}</p>}
           </div>
@@ -178,14 +201,14 @@ const CreateBlog = () => {
           </div>
           <button
             type="submit"
-            className="bg-orange-600 text-white py-3 px-6 rounded-md hover:bg-orange-700 mt-4 focus:outline-none focus:bg-orange-700"
+            className="bg-orange-600 w-max text-white py-3 px-6 rounded-md hover:bg-orange-700 mt-4 focus:outline-none focus:bg-orange-700"
           >
             Create blog
           </button>
         </form>
         <div className="mt-4 text-center">
           <Link href="/blog" passHref>
-            <button className="text-sm text-gray-600 hover:text-gray-900">
+            <button className="text-sm w-max text-gray-600 hover:text-gray-900">
               Back to blog
             </button>
           </Link>

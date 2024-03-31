@@ -9,7 +9,9 @@ const Profiles = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/collections/profile/records");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/collections/profile/records?sort=-created,id`,
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -48,14 +50,17 @@ const Profiles = () => {
               className="bg-white rounded-lg shadow-lg border-2 p-6 mt-3"
             >
               <Link href={`/profile/view/${profile.id}`}>
-              <img
-                src={process.env.NEXT_PUBLIC_API_URL + `/api/files/profile/${profile.id}/${profile.img}`}
-                alt="Profile Image"
-                className="w-full rounded-lg mb-4"
-              />
-              <h2 className="text-xl font-bold mb-2">
-                {profile.fName} {profile.lName}
-              </h2>
+                <img
+                  src={
+                    process.env.NEXT_PUBLIC_API_URL +
+                    `/api/files/profile/${profile.id}/${profile.img}`
+                  }
+                  alt="Profile Image"
+                  className="w-full rounded-lg mb-4"
+                />
+                <h2 className="text-xl font-bold mb-2">
+                  {profile.fName} {profile.lName}
+                </h2>
               </Link>
               <p className="text-gray-600 mb-4">{profile.place}</p>
               <div className="mt-4">
