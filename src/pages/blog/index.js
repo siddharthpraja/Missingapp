@@ -50,7 +50,7 @@ const Blog = () => {
               <div className="grid grid-cols-1 lg:mx-[10%] gap-4 text-stone-800">
                 {/* Wrap content with Link component */}
                 <Link href={`/blog/view/${firstBlog.id}`}>
-                  <div className="bg-gray-50 p-4 rounded">
+                  <div className="bg-white p-4 rounded">
                     <p className="text-sm text-orange-600 mt-4">
                       LATEST - {formatDate(firstBlog.created)}
                     </p>
@@ -74,7 +74,7 @@ const Blog = () => {
             <div className="container mx-auto mt-8" key={blog.id}>
               <div className="grid grid-cols-1 lg:ml-[10%] lg:mr-[40%] gap-4">
                 {/* Render blog posts here */}
-                <div className="bg-gray-50 p-4 rounded">
+                <div className="bg-white p-4 rounded">
                   <p className="text-xs text-stone-950 font-semibold mt-4">
                     MORE POSTS
                   </p>
