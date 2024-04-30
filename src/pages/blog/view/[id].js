@@ -47,7 +47,7 @@ const Blog = () => {
           <div className="grid grid-cols-1 mx-2 lg:mx-[24%] gap-4 text-stone-800">
             {/* Render Latest post here */}
             {blog && ( // Check if blog is not null before accessing its properties
-              <div className="bg-gray-100 py-4 rounded">
+              <div className="bg-gray-50 py-4 rounded">
                 <div className="mt-4 font-sans font-semibold text-xs">
                   <span className=" text-slate-400 mt-4">
                     BY{" "}
