@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="text-center flex justify-center z-40 text-black ">
+    <div className="text-center flex justify-center z-40 bg-gray-50 text-black ">
       <div className="mt-2 w-max text-sm md:text-md  px-3 py-2 rounded-full bg-gray-200 space-x-2 items-center ">
         <Link href={"/"} className="hover:bg-gray-50 rounded-full p-2">
           Home

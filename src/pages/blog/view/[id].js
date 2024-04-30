@@ -43,7 +43,7 @@ const Blog = () => {
   return (
     <div>
       <div>
-        <div className="container mx-auto mt-8">
+        <div className="container mx-4 mt-8">
           <div className="grid grid-cols-1 mx-2 lg:mx-[24%] gap-4 text-stone-800">
             {/* Render Latest post here */}
             {blog && ( // Check if blog is not null before accessing its properties
@@ -52,7 +52,7 @@ const Blog = () => {
                   <span className=" text-slate-400 mt-4">
                     BY{" "}
                     <span className="text-stone-800 font-bold">
-                      {blog.user}
+                    {blog.user ? blog.user : "Siddharth Praja"}
                     </span>{" "}
                     IN <span className="text-orange-600 ">{blog.topic}</span> -{" "}
                     {blog.created}

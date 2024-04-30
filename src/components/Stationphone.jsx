@@ -51,7 +51,7 @@ const CreativeRailway = () => {
           />
         </image>
       </svg>
-      <footer className="py-4 bg-gray-800 text-white text-center">Contact us on +91 8601480711</footer>
+      <footer className="py-4 bg-gray-800 text-white text-center">@Copyright 2024 #Gautam Praja & #Prashant Yadav</footer>
     </div>
   );
 };

@@ -239,7 +239,7 @@ const CreateProfile = () => {
           </button>
         </form>
         <div className="mt-4 text-center">
-          <Link href="/profiles" passHref>
+          <Link href="/profile" passHref>
             <button className="text-sm text-gray-600 hover:text-gray-900">
               Back to Profiles
             </button>

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const AboutPage = () => {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h2 className="text-6xl font-extrabold tracking-tight text-gray-900">
@@ -111,6 +111,7 @@ const AboutPage = () => {
             resolution for missing persons and their families across Mumbai.
           </p>
         </div>
+        
       </div>
     </div>
   );
